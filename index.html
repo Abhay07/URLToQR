@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Generate QR</title>
+	<style>
+		body{
+			font-family: Helvetica;
+			color:#2d2d2d;
+			font-size: 30px;
+			text-align: center;
+		}
+		#qrcode{
+		    margin-top: 50px;
+		    display: inline-block;
+		    margin-bottom: 20px;
+		}
+
+		#ins{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<div id="qrcode"></div>
+		<div id="ins">Scan the above QR in your phone</div>
+	</div>
+<script src="qrcode.min.js"></script>
+<script type="text/javascript">
+let url = window.location.search.split('?incomingUrl=')[1];
+url = url.replace(/\?.+$/,'')
+url = decodeURIComponent(url);
+if(url){
+	new QRCode(document.getElementById("qrcode"), url);
+	document.querySelector("#ins").style.display = "block";
+}
+</script>
+</body>
+</html>
