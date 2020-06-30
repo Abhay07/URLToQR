@@ -11,7 +11,7 @@
 			text-align: center;
 		}
 		#qrcode{
-		    margin-top: 50px;
+		    margin-top: 20px;
 		    display: inline-block;
 		    margin-bottom: 20px;
 		}
@@ -23,6 +23,12 @@
 		#link{
 			font-size: 16px;
 		}
+		input{
+			width:50%;
+			padding: 10px;
+			font-size: 16px;
+			margin-top: 20px;
+		}
 	</style>
 </head>
 <body>
@@ -30,15 +36,35 @@
 		<div id="qrcode"></div>
 		<div id="ins">Scan the above QR in your phone</div>
 		<div id="link"></div>
+		<div><input type="text" id="inputText" placeholder="Paste any text and press enter" onkeypress="generateQR()">
+		</div>
 	</div>
-<script src="qrcode.min.js"></script>
+<script src="qrcode.js"></script>
 <script type="text/javascript">
 let url = window.location.search.split('?incomingUrl=')[1];
+url = url.replace(/\&.+$/,'')
 url = decodeURIComponent(url);
 document.querySelector("#link").innerText = `Link - ${url}`;
 if(url){
-	new QRCode(document.getElementById("qrcode"), url);
+	var qrCode = new QRCode(document.getElementById("qrcode"), url);
 	document.querySelector("#ins").style.display = "block";
+}
+
+
+function generateQR(){
+	const text = document.querySelector("#inputText").value;
+	if(text){
+		document.querySelector("#link").innerText = `Link - ${text}`;
+		document.querySelector("#ins").style.display = "none";
+		if(qrCode){
+			qrCode.clear();
+			qrCode.makeCode(text);
+		}
+		else{
+			new QRCode(document.getElementById("qrcode"), text);
+		}
+		document.querySelector("#ins").style.display = "block";
+	}
 }
 </script>
 </body>
