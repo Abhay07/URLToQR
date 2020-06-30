@@ -18,6 +18,10 @@
 
 		#ins{
 			display: none;
+			margin-bottom: 20px;
+		}
+		#link{
+			font-size: 16px;
 		}
 	</style>
 </head>
@@ -25,12 +29,14 @@
 	<div>
 		<div id="qrcode"></div>
 		<div id="ins">Scan the above QR in your phone</div>
+		<div id="link"></div>
 	</div>
 <script src="qrcode.min.js"></script>
 <script type="text/javascript">
 let url = window.location.search.split('?incomingUrl=')[1];
 url = url.replace(/\?.+$/,'')
 url = decodeURIComponent(url);
+document.querySelector("#link").innerText = `Link - ${url}`;
 if(url){
 	new QRCode(document.getElementById("qrcode"), url);
 	document.querySelector("#ins").style.display = "block";
