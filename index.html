@@ -42,7 +42,7 @@
 <script src="qrcode.js"></script>
 <script type="text/javascript">
 let url = window.location.search.split('?incomingUrl=')[1];
-url = url.replace(/\&.+$/,'')
+// url = url.replace(/\&.+$/,'')
 url = decodeURIComponent(url);
 document.querySelector("#link").innerText = `Link - ${url}`;
 if(url){
