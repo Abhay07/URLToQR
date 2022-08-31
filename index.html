@@ -1,71 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Generate QR</title>
 	<style>
-		body{
+		body {
 			font-family: Helvetica;
-			color:#2d2d2d;
+			color: #2d2d2d;
 			font-size: 30px;
 			text-align: center;
 		}
-		#qrcode{
-		    margin-top: 20px;
-		    display: inline-block;
-		    margin-bottom: 20px;
+
+		#qrcode {
+			margin-top: 20px;
+			display: inline-block;
+			margin-bottom: 20px;
 		}
 
-		#ins{
+		#ins {
 			display: none;
 			margin-bottom: 20px;
 		}
-		#link{
+
+		#link {
 			font-size: 16px;
 		}
-		input{
-			width:50%;
+
+		input {
+			width: 50%;
 			padding: 10px;
 			font-size: 16px;
 			margin-top: 20px;
 		}
 	</style>
 </head>
+
 <body>
 	<div>
 		<div id="qrcode"></div>
 		<div id="ins">Scan the above QR in your phone</div>
 		<div id="link"></div>
-		<div><input type="text" id="inputText" placeholder="You can also paste any text and press enter" onkeypress="generateQR()">
+		<div><input type="text" id="inputText"
+				placeholder="You can also paste new link or text here and then press enter" onkeypress="generateQR()">
 		</div>
 	</div>
-<script src="qrcode.js"></script>
-<script type="text/javascript">
-let url = window.location.search.split('?incomingUrl=')[1];
-// url = url.replace(/\&.+$/,'')
-url = decodeURIComponent(url);
-document.querySelector("#link").innerText = `Link - ${url}`;
-if(url){
-	var qrCode = new QRCode(document.getElementById("qrcode"), url);
-	document.querySelector("#ins").style.display = "block";
-}
+	<script src="qrcode.js"></script>
+	<script type="text/javascript">
+		let url = 'https://www.instagram.com/goodmoviestowatch/'
+		// url = url.replace(/\&.+$/,'')
+		url = decodeURIComponent(url);
+		document.querySelector("#link").innerText = `Link - ${url}`;
+		if (url) {
+			var qrCode = new QRCode(document.getElementById("qrcode"), url);
+			document.querySelector("#ins").style.display = "block";
+		}
 
 
-function generateQR(){
-	const text = document.querySelector("#inputText").value;
-	if(text){
-		document.querySelector("#link").innerText = `Link - ${text}`;
-		document.querySelector("#ins").style.display = "none";
-		if(qrCode){
-			qrCode.clear();
-			qrCode.makeCode(text);
+		function generateQR() {
+			const text = document.querySelector("#inputText").value;
+			if (text) {
+				document.querySelector("#link").innerText = `Link - ${text}`;
+				document.querySelector("#ins").style.display = "none";
+				if (qrCode) {
+					qrCode.clear();
+					qrCode.makeCode(text);
+				}
+				else {
+					new QRCode(document.getElementById("qrcode"), text);
+				}
+				document.querySelector("#ins").style.display = "block";
+			}
 		}
-		else{
-			new QRCode(document.getElementById("qrcode"), text);
-		}
-		document.querySelector("#ins").style.display = "block";
-	}
-}
-</script>
+	</script>
 </body>
+
 </html>
